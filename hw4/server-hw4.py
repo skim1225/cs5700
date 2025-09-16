@@ -14,10 +14,7 @@ class MyHandler(SimpleHTTPRequestHandler):
         # Serve HTML or JSON content based on the requested resource
         if mimetypes.guess_type(self.path)[0] == "text/html":
             try:
-                '''
-                Insert your code here.    
-                '''
-                resource = self.path.lstrip("/")
+                resource = self.path
                 with open(resource, "rb") as f:
                     body = f.read()
                 self.send_response(200)
@@ -26,14 +23,10 @@ class MyHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(body)
             except FileNotFoundError:
-                '''Insert your code here'''
-                self.send_error(404, f"File Not Found: {self.path.lstrip('/')}")
+                self.send_error(404, f"File Not Found: {self.path}")
         elif mimetypes.guess_type(self.path)[0] == "application/json":
             try:
-                '''
-                Insert your code here.    
-                '''
-                resource = self.path.lstrip("/")
+                resource = self.path
                 with open(resource, "rb") as f:
                     body = json.load(f)
                 body = json.dumps(body).encode("utf-8")
@@ -43,20 +36,13 @@ class MyHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(body)
             except FileNotFoundError:
-                '''Insert your code here'''
-                self.send_error(404, f"File Not Found: {self.path.lstrip('/')}")
+                self.send_error(404, f"File Not Found: {self.path}")
         else:
             # Handle unsupported content type
-            '''
-            Insert your code here.    
-            '''
             self.send_response(404)
             self.send_header("Content-Type", "text/plain")
             self.end_headers()
             self.wfile.write(b"404 Not Found - Unsupported Content Type")
-            '''
-            Insert your code here.    
-            '''
 
 # Server setup
 port = 8070

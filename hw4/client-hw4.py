@@ -8,14 +8,9 @@
 import http.client
 import sys
 
-host = 'localhost'
-
 def get_resource(resource):
-    '''
-    Insert your code here.
-    '''
 
-    conn = http.client.HTTPConnection(host, 8070)
+    conn = http.client.HTTPConnection('localhost', 8070)
     conn.request('GET', resource)
     response = conn.getresponse()
     data = response.read()
